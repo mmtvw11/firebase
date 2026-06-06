@@ -1,32 +1,28 @@
-import 'package:firebaseapp/model/repo/users_reposytory.dart';
-import 'package:firebaseapp/model/viewmodel/auth_bloc.dart';
-import 'package:firebaseapp/model/viewmodel/auth_even.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'firebase_options.dart';
+import 'routes/router.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
-    options:DefoultFirebaseOptions.currentPlatfrom
+    options: DefaultFirebaseOptions.currentPlatform,
   );
-  final authRepo = FirebaseAuthReposytory();
-
- runApp(
-  BlocProvider(
-    create: (_) => AuthBloc(repo: AuthRepe)
-    ..add(AuthStarted()),
-    child: MainApp(),
-    )
- );
+  runApp(const MyApp());
 }
 
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return 
+    return MaterialApp.router(
+      title: 'Jobspot',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
+      ),
+      routerConfig: router,
+    );
   }
 }
